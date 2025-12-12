@@ -122,15 +122,16 @@ Testing with actual genes:
 docker run -it --entrypoint 'bash' -v '/data/rkalendar:/home' aakechin/ngs-primerplex:1.3.4
 echo "RHD" > /home/primerplex/input/genelist.txt
 echo "RHCE" >> /home/primerplex/input/genelist.txt
+
 python3 /NGS-PrimerPlex/getGeneRegions.py \
     -glf /home/primerplex/input/genelist.txt \
     -ref /home/primerplex/combined_ref_hg38/ \
     -wgref /home/primerplex/combined_ref_hg38/ucsc.hg38.fa \
-    -rf home/primerplex/input/gene_regions.bed
+    -rf /home/primerplex/input/gene_regions.bed
 
 
-python3 /NGS-PrimerPlex/NGS-PrimerPlex.py \
-    -ref hg19.fa \
-    -p targets.txt \
-    -o output_folder
+python3 /NGS-PrimerPlex/NGS_primerplex.py \
+    -ref /home/primerplex/combined_ref_hg38/ucsc.hg38.fa \
+    --regions-file /home/primerplex/input/gene_regions.bed
+    --threads 20
 ```
